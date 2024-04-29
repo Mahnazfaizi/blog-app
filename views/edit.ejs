@@ -1,0 +1,30 @@
+
+
+
+<%- include("partials/header.ejs")%>
+
+<div class="container">
+  <h1>Edit Post</h1>
+  <form action="/edit/<%= post.id %>" method="post" enctype="multipart/form-data">
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" value="<%= post.title %>" class="input" required> 
+    <label for="description">Body:</label><br> 
+    <input name="body" value="<%= post.body %>" class="input"> 
+    <% if (post.image) { %>
+      <img src="../<%= post.image %>" alt="Post Image" id="preview">
+    <% } %>
+    <input type="file" name="image" id="image"> 
+    <button type="submit" class="update">Update</button> 
+  </form>
+</div>
+<%- include("partials/footer.ejs")%>
+
+<script>
+  document.getElementById('image').addEventListener('change', function(e) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+          document.getElementById('preview').src = e.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0]);
+  });
+</script>

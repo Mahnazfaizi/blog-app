@@ -1,0 +1,28 @@
+<%- include("partials/header.ejs")%>
+
+    <div class="container">
+        <h1>Create a New Post</h1>
+        <form action="/post" method="post" enctype="multipart/form-data">
+            <label for="title">Title:</label><br>
+            <input type="text" name="title" placeholder="Title" class="input" required>
+            <label for="discription">Body:</label><br>
+            <input name="body" placeholder="Body" class="input">
+            <img src="../public/images/placeholder.jpg" alt="placeholder image" id="preview">
+            <input type="file" name="image" id="image" required>
+            <button type="submit" class="uplode">Uplode</button>
+        </form>
+    </div>
+
+
+
+    <%- include("partials/footer.ejs")%>
+
+    <script>
+        document.getElementById('image').addEventListener('change', function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    </script>
