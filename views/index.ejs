@@ -1,34 +1,43 @@
-<%- include("partials/header.ejs")%>
+<%- include("partials/header.ejs") %>
     <div class="container">
-        <h2>LASTEST POSTS</h2>
+        <h2>LATEST POSTS</h2>
         <card class="card">
             <% if (locals.message) { %>
                 toastr['<%= message.type %>']('<%= message.text %>');
-              <% } %>
+                        <% } %>
 
-            <% posts.forEach(post=> { %>
-                <div>
-                    <h2>
-                        <%= post.title %>
-                    </h2>
-                    <p>
-                        <%= post.body %>
-                    </p>
-                    <img src="<%= post.image %>" alt="Post Image">
-                    <!-- Delete button -->
-                    <form action="/delete/<%= post.id %>" method="POST">
-                        <button type="submit" class="delete">Delete</button>
+                            <% posts.forEach(post=> { %>
+                                <div>
+                                    <h2>
+                                        <%= post.title %>
+                                    </h2>
+                                    <p>
+                                        <%= post.body %>
+                                    </p>
+                                    <img src="<%= post.image %>" alt="Post Image">
 
-                    </form>
-                    <!-- Edit button -->
-                    <button class="edit"><a href="/edit/<%= post.id %>">Edit</a></button>
-                </div>
-                <% }); %>
+                                    <!-- Delete button -->
+                                    <form action="/delete/<%= post.id %>" method="POST"
+                                        onsubmit="return confirmDelete()">
+                                        <button type="submit" class="delete">Delete</button>
+                                    </form>
+
+                                    <!-- Edit button -->
+                                    <button class="edit" onclick="alertEdit()"><a
+                                            href="/edit/<%= post.id %>">Edit</a></button>
+                                </div>
+                                <% }); %>
         </card>
     </div>
 
+    <script>
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this post?');
+        }
 
+        function alertEdit() {
+            alert('You are about to edit this post.');
+        }
+    </script>
 
-    <%- include("partials/footer.ejs")%>
-
- 
+    <%- include("partials/footer.ejs") %>
